@@ -5,20 +5,20 @@ from pprint import pprint
 
 load_dotenv()
 
-def get_current_weather(city='Cleveland'):
+def get_current_weather():
+    print('\n*** Get Current Weather Conditions ***\n')
+
+    city = input('\nPlease enter a city name:\n')
+
     request_url = f'https://api.openweathermap.org/data/2.5/weather?&appid={os.getenv('API_KEY')}&q={city}&units=imperial'
 
     weater_data = requests.get(request_url).json()
 
-    return weater_data
+    # pprint(weater_data)
 
-if __name__ == '__main__':
-    print('\n*** Get Current Weather Conditions ***\n')
+    print(f'\nCurrent weather for {weater_data["name"]}')
+    print(f'\nCurrent temp is {weater_data["main"]["temp"]}')
+    print(f'\nFeels like {weater_data["main"]["feels_like"]} and {weater_data["weather"][0]["description"]}.')
 
-    city = input('\nPlease enter a city: ')
-
-    weather_data = get_current_weather(city)
-
-    print('\n')
-
-    pprint(weather_data)
+if __name__ == "__main__":
+    get_current_weather()
